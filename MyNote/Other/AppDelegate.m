@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "ZYEditViewController.h"
+#import "ZYNavigationController.h"
 @interface AppDelegate ()
 
 @end
@@ -17,7 +18,46 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //自定义相关
+    //    if (launchOptions) {
+    //        UIApplication *app = [UIApplication sharedApplication];
+    //        //获取一个应用程序对象的shortcutItem列表
+    //        id existingShortcutItems = [app shortcutItems];
+    //
+    //        //获取第0个shortcutItem
+    //        id oldItem = [existingShortcutItems objectAtIndex: 0];
+    //        //将旧的shortcutItem改变为可修改类型shortcutItem
+    //        id mutableItem = [oldItem mutableCopy];
+    //        //修改shortcutItem的显示标题
+    //        [mutableItem setLocalizedTitle: @"Click Lewis"];
+    //        [mutableItem setIcon:[UIApplicationShortcutIcon iconWithTemplateImageName:@""]];
+    //        [mutableItem setUserInfo:nil];
+    //
+    //        //根据旧的shortcutItems生成可变shortcutItems数组
+    //        id updatedShortcutItems = [existingShortcutItems mutableCopy];
+    //        //修改可变shortcutItems数组中对应index下的元素为新的shortcutItem
+    //        [updatedShortcutItems replaceObjectAtIndex: 0 withObject: mutableItem];
+    //        //修改应用程序对象的shortcutItems为新的数组
+    //        [app setShortcutItems: updatedShortcutItems];
+    //    
+    //    }
     return YES;
+}
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
+{
+    if ([shortcutItem.type isEqualToString:@"UITouchText.look"]) {
+        
+    }else{
+        //如果是编辑
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        ZYNavigationController *navi = [sb instantiateInitialViewController];
+        self.window.rootViewController = navi;
+        ZYEditViewController *edit = [[ZYEditViewController alloc] init];
+        edit.type = kEditTypenew;
+        
+        [navi pushViewController:edit animated:YES];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
